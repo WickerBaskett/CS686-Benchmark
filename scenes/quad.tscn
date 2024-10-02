@@ -1,8 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://hkmwv1wl342u"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_dy4u0"]
-resource_local_to_scene = true
-size = Vector2(0.25, 0.25)
+[sub_resource type="QuadMesh" id="QuadMesh_hotre"]
 
 [node name="quad" type="MeshInstance3D"]
-mesh = SubResource("QuadMesh_dy4u0")
+mesh = SubResource("QuadMesh_hotre")

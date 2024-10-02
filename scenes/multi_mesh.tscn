@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b22wy6qe58kjq"]
+
+[ext_resource type="Script" path="res://scripts/multi_mesh.gd" id="1_edxim"]
+
+[node name="multi_mesh" type="MultiMeshInstance3D"]
+script = ExtResource("1_edxim")
