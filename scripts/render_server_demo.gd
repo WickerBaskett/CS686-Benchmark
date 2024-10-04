@@ -10,7 +10,7 @@ signal render_server_quad_spawned
 func _process(_delta: float):
 	if start:
 		start = false
-		for i in 10:
+		for i in 10000:
 			var instance = RenderingServer.instance_create()
 			
 			var scenario = get_world_3d().scenario
@@ -19,7 +19,7 @@ func _process(_delta: float):
 			mesh_array.push_back(quad)
 			RenderingServer.instance_set_base(instance, mesh_array.back())
 			
-			var xform = Transform3D(Basis(), Vector3(randf_range(-50, 50), randf_range(-50, 50), 0.0))
+			var xform = Transform3D(Basis(), Vector3(randf_range(-50, 50), randf_range(-50, 50), randf_range(-50, 50)))
 			RenderingServer.instance_set_transform(instance, xform)
 			emit_signal("render_server_quad_spawned")
 

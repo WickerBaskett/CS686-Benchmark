@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://brfpwqaju5i51"]
+[gd_scene load_steps=6 format=3 uid="uid://brfpwqaju5i51"]
 
 [ext_resource type="Script" path="res://scripts/controller.gd" id="1_bv5w3"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="1_lqhvd"]
 [ext_resource type="Script" path="res://scripts/label.gd" id="2_p7it5"]
 [ext_resource type="PackedScene" uid="uid://b85v78pqg4r43" path="res://scenes/render_server_demo.tscn" id="3_yxi3o"]
+[ext_resource type="PackedScene" uid="uid://053s2lglhu7a" path="res://scenes/moveable_camera.tscn" id="5_n13mw"]
 
 [node name="Controller" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.41799, 12.3326)
@@ -24,22 +25,25 @@ offset_bottom = 651.056
 [node name="GridContainer" type="GridContainer" parent="UserInterface/BoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="UserInterface/BoxContainer/GridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/BoxContainer/GridContainer"]
 layout_mode = 2
-text = "Stop Recording"
 
-[node name="StartSPawner" type="Button" parent="UserInterface/BoxContainer/GridContainer"]
+[node name="StartSPawner" type="Button" parent="UserInterface/BoxContainer/GridContainer/HBoxContainer"]
 layout_mode = 2
-text = "Start Scene Spawner"
+text = "Scene Spawner"
+
+[node name="ToggleOC" type="Button" parent="UserInterface/BoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+text = "Toggle Occlusion"
 
 [node name="StartRenderServerQuads" type="Button" parent="UserInterface/BoxContainer/GridContainer"]
 layout_mode = 2
-text = "Start Render Server Spawner
+text = "Render Server Spawner
 "
 
 [node name="StartMult" type="Button" parent="UserInterface/BoxContainer/GridContainer"]
 layout_mode = 2
-text = "Start MultiMesh
+text = "MultiMesh
 "
 
 [node name="Reload" type="Button" parent="UserInterface/BoxContainer/GridContainer"]
@@ -54,16 +58,19 @@ text = "
 "
 script = ExtResource("2_p7it5")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100)
-
 [node name="RenderServerDemo" parent="." instance=ExtResource("3_yxi3o")]
 
 [node name="QuadSpawner" type="Node3D" parent="."]
 script = ExtResource("1_lqhvd")
 
-[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/Button" to="UserInterface/BoxContainer/Label" method="_on_button_pressed"]
-[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/StartSPawner" to="QuadSpawner" method="_on_start_s_pawner_pressed"]
+[node name="Camera3D" parent="." instance=ExtResource("5_n13mw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 61.4569)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.850701, 0.52565, 0, -0.52565, 0.850701, 0, 5.70716, 14.2109)
+
+[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/HBoxContainer/StartSPawner" to="QuadSpawner" method="_on_start_s_pawner_pressed"]
+[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/HBoxContainer/ToggleOC" to="QuadSpawner" method="_on_toggle_oc_pressed"]
 [connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/StartRenderServerQuads" to="RenderServerDemo" method="_on_start_render_server_quads_pressed"]
 [connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/StartMult" to="." method="_on_start_mult_pressed"]
 [connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/StartMult" to="UserInterface/BoxContainer/Label" method="_on_start_mult_pressed"]

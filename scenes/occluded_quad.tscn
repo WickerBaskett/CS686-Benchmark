@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bolnadpccbhj6"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_pdduu"]
+
+[sub_resource type="QuadOccluder3D" id="QuadOccluder3D_ci0ow"]
+size = Vector2(5.64248, 5.19048)
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_pdduu")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+occluder = SubResource("QuadOccluder3D_ci0ow")

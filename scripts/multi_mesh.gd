@@ -12,7 +12,7 @@ func _ready() -> void:
 	multimesh.visible_instance_count = 3000000
 	multimesh.mesh = quad
 	for i in multimesh.visible_instance_count:
-		multimesh.set_instance_transform(i, Transform3D(Basis(), Vector3(randf_range(-50, 50), randf_range(-50, 50), 0)))
+		multimesh.set_instance_transform(i, Transform3D(Basis(), Vector3(randf_range(-50, 50), randf_range(-50, 50), randf_range(-50, 50))))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
