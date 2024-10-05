@@ -3,7 +3,7 @@
 [sub_resource type="QuadMesh" id="QuadMesh_pdduu"]
 
 [sub_resource type="QuadOccluder3D" id="QuadOccluder3D_ci0ow"]
-size = Vector2(5.64248, 5.19048)
+size = Vector2(5, 5)
 
 [node name="MeshInstance3D" type="MeshInstance3D"]
 mesh = SubResource("QuadMesh_pdduu")
