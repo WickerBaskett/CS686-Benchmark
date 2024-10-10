@@ -21,7 +21,7 @@ func _input(event: InputEvent) -> void:
 			debug_mode = true
 	elif event.is_action_pressed("menu_toggle"):
 		if !paused:
-			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			paused = true
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
