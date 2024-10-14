@@ -1,7 +1,7 @@
 extends Node3D
 
-const MULTI_MESH = preload("res://scenes/multi_mesh.tscn")
-var mult_mesh
+const MULTI_MESH := preload("res://scenes/multi_mesh.tscn")
+var mult_mesh: Node
 var mult_is_child : bool = false
 var debug_mode : bool = false
 var paused : bool = false
@@ -28,7 +28,7 @@ func _input(event: InputEvent) -> void:
 			paused = false
 		
 func _on_reload_pressed() -> void:
-	get_tree().reload_current_scene()
+	var _unused = get_tree().reload_current_scene()
 
 
 func _on_start_mult_pressed() -> void:

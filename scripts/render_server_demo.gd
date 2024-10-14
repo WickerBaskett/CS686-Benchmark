@@ -19,17 +19,26 @@ func _process(_delta: float):
 			# Get a random position for the current mesh
 			var pos = Vector3(randf_range(-50, 50), randf_range(-50, 50), randf_range(-50, 50))
 			
-			# Create an array of the vertexes of a square occluder mesh at
-			# the location of the current mesh
+			# Create an array of the vertexes of a square mesh at
+			# the location randomized position, this is passed as a one 
+			# dimensional array
 			var vert_array: Array
-			# Top Left
-			vert_array.push_back(Vector3((pos.x + 1), (pos.y + 1), pos.z))
-			# Bottom Left
-			vert_array.push_back(Vector3((pos.x + 1), (pos.y - 1), pos.z))
-			# Bottom Right
-			vert_array.push_back(Vector3((pos.x - 1), (pos.y - 1), pos.z))
-			# Top Right
-			vert_array.push_back(Vector3((pos.x - 1), (pos.y + 1), pos.z))
+			# Top Left       | Index 0
+			vert_array.push_back(int(pos.x + 1))
+			vert_array.push_back(int(pos.y + 1.0))
+			vert_array.push_back(int(pos.z))
+			# Bottom Left    | Index 1
+			vert_array.push_back(int(pos.x + 1.0))
+			vert_array.push_back(int(pos.y - 1.0))
+			vert_array.push_back(int(pos.z))
+			# Bottom Right   | Index 2
+			vert_array.push_back(int(pos.x - 1.0))
+			vert_array.push_back(int(pos.y - 1.0))
+			vert_array.push_back(int(pos.z))
+			# Top Right      | Index 3
+			vert_array.push_back(float(pos.x - 1))
+			vert_array.push_back(float(pos.y + 1))
+			vert_array.push_back(float(pos.z))
 			
 			# Set up the vertex and index buffer
 			var vertices := PackedVector3Array(vert_array)
@@ -49,21 +58,28 @@ func _process(_delta: float):
 			var scenario := get_world_3d().scenario
 			RenderingServer.instance_set_scenario(mesh_instance, scenario)
 			
-			# Add mesh to the viewport scenario
-			mesh_array.push_back(RenderingServer.mesh_create())
+			# Set the vertex format flag, feels like there should be a better
+			# way to find the right format bytes than digging through the source code
+			# 0x1 << 0x0 represents a Vertex Buffer
+			var format = 0x1 << 0x0
 			
 			var mesh_surface: Dictionary = {}
 			# We are drawing our shape using triangles
 			mesh_surface.get_or_add("primitive", RenderingServer.PRIMITIVE_TRIANGLES)
 			# 
-			mesh_surface.get_or_add("format", 0)
+			mesh_surface.get_or_add("format", format)
 			# The vertex and index buffers to be drawn
 			mesh_surface.get_or_add("vertex_data", vertices)
 			mesh_surface.get_or_add("vertex_count", vertices.size())
 			mesh_surface.get_or_add("index_data", indices)
 			mesh_surface.get_or_add("index_count", indices.size())
-			# 
-			mesh_surface.get_or_add("aabb", 0)
+			# The axis aligned bounding box for our mesh
+			mesh_surface.get_or_add("aabb", AABB(pos, Vector3(2, 2, 0.5)))
+			
+			# Add mesh to the viewport scenario
+			var mesh = RenderingServer.mesh_create()
+			RenderingServer.mesh_add_surface(mesh, mesh_surface)
+			mesh_array.push_back(mesh)
 			
 			RenderingServer.instance_set_base(mesh_instance, mesh_array.back())
 			

@@ -1,6 +1,6 @@
 extends MultiMeshInstance3D
 
-@onready var quad = QuadMesh.new()
+@onready var quad := QuadMesh.new()
 
 var running : bool = false;
 
@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _on_start_mult_pressed() -> void:
