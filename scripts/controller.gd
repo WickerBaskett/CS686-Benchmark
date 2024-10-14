@@ -3,7 +3,7 @@ extends Node3D
 const MULTI_MESH := preload("res://scenes/multi_mesh.tscn")
 var mult_mesh: Node
 var mult_is_child : bool = false
-var debug_mode : bool = false
+var debug_mode: int = 0
 var paused : bool = false
 
 func _ready() -> void:
@@ -13,12 +13,15 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_toggle"):
-		if debug_mode:
+		if (debug_mode == 0):
 			get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_DISABLED)
-			debug_mode = false
-		else:
+			debug_mode += 1
+		elif (debug_mode == 1):
 			get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_OVERDRAW)
-			debug_mode = true
+			debug_mode += 1
+		else:
+			get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_OCCLUDERS)
+			debug_mode = 0
 	elif event.is_action_pressed("menu_toggle"):
 		if !paused:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
