@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://053s2lglhu7a" path="res://scenes/moveable_camera.tscn" id="5_n13mw"]
 
 [node name="Controller" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.41799, 12.3326)
 script = ExtResource("1_bv5w3")
 
 [node name="UserInterface" type="Node" parent="."]
@@ -28,18 +27,22 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/BoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="StartSPawner" type="Button" parent="UserInterface/BoxContainer/GridContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/BoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StartSPawner" type="Button" parent="UserInterface/BoxContainer/GridContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Scene Spawner"
 
-[node name="ToggleOC" type="Button" parent="UserInterface/BoxContainer/GridContainer/HBoxContainer"]
-layout_mode = 2
-text = "Toggle Occlusion"
-
-[node name="StartRenderServerQuads" type="Button" parent="UserInterface/BoxContainer/GridContainer"]
+[node name="StartRenderServerQuads" type="Button" parent="UserInterface/BoxContainer/GridContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Render Server Spawner
 "
+
+[node name="ToggleOC" type="Button" parent="UserInterface/BoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Toggle Occlusion"
 
 [node name="StartMult" type="Button" parent="UserInterface/BoxContainer/GridContainer"]
 layout_mode = 2
@@ -69,9 +72,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 61.4569)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.850701, 0.52565, 0, -0.52565, 0.850701, 0, 5.70716, 14.2109)
 
-[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/HBoxContainer/StartSPawner" to="QuadSpawner" method="_on_start_s_pawner_pressed"]
+[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/HBoxContainer/VBoxContainer/StartSPawner" to="QuadSpawner" method="_on_start_s_pawner_pressed"]
+[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/HBoxContainer/VBoxContainer/StartRenderServerQuads" to="RenderServerDemo" method="_on_start_render_server_quads_pressed"]
+[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/HBoxContainer/ToggleOC" to="RenderServerDemo" method="_on_toggle_oc_pressed"]
 [connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/HBoxContainer/ToggleOC" to="QuadSpawner" method="_on_toggle_oc_pressed"]
-[connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/StartRenderServerQuads" to="RenderServerDemo" method="_on_start_render_server_quads_pressed"]
 [connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/StartMult" to="." method="_on_start_mult_pressed"]
 [connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/StartMult" to="UserInterface/BoxContainer/Label" method="_on_start_mult_pressed"]
 [connection signal="pressed" from="UserInterface/BoxContainer/GridContainer/Reload" to="." method="_on_reload_pressed"]

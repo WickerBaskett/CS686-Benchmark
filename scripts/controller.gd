@@ -3,7 +3,6 @@ extends Node3D
 const MULTI_MESH := preload("res://scenes/multi_mesh.tscn")
 var mult_mesh: Node
 var mult_is_child : bool = false
-var debug_mode: int = 0
 var paused : bool = false
 
 func _ready() -> void:
@@ -12,16 +11,17 @@ func _ready() -> void:
 	
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug_toggle"):
-		if (debug_mode == 0):
-			get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_DISABLED)
-			debug_mode += 1
-		elif (debug_mode == 1):
-			get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_OVERDRAW)
-			debug_mode += 1
-		else:
-			get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_OCCLUDERS)
-			debug_mode = 0
+	# Toggle between different viewports
+	if event.is_action_pressed("debug_default"):
+		get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_DISABLED)
+	elif event.is_action_pressed("debug_overdraw"):
+		get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_OVERDRAW)
+	elif event.is_action_pressed("debug_occluder"):
+		get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_OCCLUDERS)
+	elif event.is_action_pressed("debug_normal"):
+		get_viewport().set_debug_draw(Viewport.DEBUG_DRAW_NORMAL_BUFFER)
+	
+	# Toggle between rotating camera and interacting with UI
 	elif event.is_action_pressed("menu_toggle"):
 		if !paused:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -29,11 +29,11 @@ func _input(event: InputEvent) -> void:
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			paused = false
-		
+
 func _on_reload_pressed() -> void:
-	var _unused = get_tree().reload_current_scene()
+	get_tree().reload_current_scene()
 
-
+# Add and remove the multimesh from the scene
 func _on_start_mult_pressed() -> void:
 	if not mult_is_child:
 		add_child(mult_mesh)

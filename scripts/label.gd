@@ -1,7 +1,6 @@
 extends Label
 
 var quads : int
-var last_60_fps : int
 var mult_visible : bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,7 +15,6 @@ func _process(delta: float) -> void:
 
 func _on_node_3d_render_server_quad_spawned() -> void:
 	quads += 1
-
 
 func _on_start_mult_pressed() -> void:
 	if !mult_visible:

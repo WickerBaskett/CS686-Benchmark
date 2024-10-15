@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dinhkrhbd22my"]
+
+[ext_resource type="ArrayMesh" uid="uid://cntufxh1cm8ud" path="res://assets/deformed_sphere.obj" id="1_0ntqy"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DeformedSphere" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_0ntqy")
